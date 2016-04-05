@@ -89,26 +89,26 @@ CREATE TABLE `featureCodes` (
   KEY `name` (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_unicode_ci;
 
--- Create syntax for TABLE 'geoname'
+-- Create syntax for TABLE 'geoname' with FullText index
 CREATE TABLE `geoname` (
   `geonameid` int(11) NOT NULL,
-  `name` varchar(200) DEFAULT NULL,
-  `asciiname` varchar(200) DEFAULT NULL,
-  `alternatenames` varchar(4000) DEFAULT NULL,
+  `name` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `asciiname` varchar(200) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `alternatenames` varchar(4000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `latitude` decimal(10,7) DEFAULT NULL,
   `longitude` decimal(10,7) DEFAULT NULL,
-  `fclass` char(1) DEFAULT NULL,
-  `fcode` varchar(10) DEFAULT NULL,
-  `country` varchar(2) DEFAULT NULL,
-  `cc2` varchar(60) DEFAULT NULL,
-  `admin1` varchar(20) DEFAULT NULL,
-  `admin2` varchar(80) DEFAULT NULL,
-  `admin3` varchar(20) DEFAULT NULL,
-  `admin4` varchar(20) DEFAULT NULL,
+  `fclass` char(1) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `fcode` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `country` varchar(2) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cc2` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admin1` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admin2` varchar(80) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admin3` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `admin4` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
   `population` int(11) DEFAULT NULL,
   `elevation` int(11) DEFAULT NULL,
   `gtopo30` int(11) DEFAULT NULL,
-  `timezone` varchar(40) DEFAULT NULL,
+  `timezone` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `moddate` date DEFAULT NULL,
   PRIMARY KEY (`geonameid`),
   KEY `name` (`name`),
@@ -122,8 +122,11 @@ CREATE TABLE `geoname` (
   KEY `admin1` (`admin1`),
   KEY `population` (`population`),
   KEY `elevation` (`elevation`),
-  KEY `timezone` (`timezone`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_unicode_ci;
+  KEY `timezone` (`timezone`),
+  FULLTEXT KEY `FT_name` (`name`),
+  FULLTEXT KEY `FT_asciiname` (`asciiname`),
+  FULLTEXT KEY `FT_altname` (`alternatenames`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Create syntax for TABLE 'hierarchy'
 CREATE TABLE `hierarchy` (
